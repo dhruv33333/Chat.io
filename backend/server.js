@@ -1,9 +1,13 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const connectDB = require("./utils/connectDB");
 const app = express();
 
 // setting up env file
 dotenv.config();
+
+// connecting to db
+connectDB();
 
 // default route, TODO: make a separate route folder
 app.get("/", (req, res) => {
