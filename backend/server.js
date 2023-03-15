@@ -10,7 +10,7 @@ dotenv.config();
 // connecting to db
 connectDB();
 
-app.use(express.json()); // so that our app can understand/read the req json data that we send
+app.use(express.json()); // adding middleware, so that our app can understand/read the req json data that we send
 
 app.use(router);
 
