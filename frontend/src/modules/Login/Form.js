@@ -5,6 +5,7 @@ import { FaUser } from "react-icons/fa";
 import { MdEmail, MdLock, MdOutlineLock } from "react-icons/md";
 
 // components
+import { Button } from "@chakra-ui/react";
 import { Input } from "../../components";
 
 // styles
@@ -18,6 +19,7 @@ const Form = ({
   setRegisterInfo,
   handleLogin,
   handleRegister,
+  isLoading,
 }) => {
   const handleLoginInfoChange = (e, key) => {
     const info = { ...loginInfo };
@@ -90,11 +92,16 @@ const Form = ({
   return (
     <div>
       {form}
-      <SubmitBtn
+      <Button
+        colorScheme="blue"
+        isLoading={isLoading}
         onClick={selectedTab === "login" ? handleLogin : handleRegister}
+        mt={4}
+        size="md"
+        p="20px 40px"
       >
         {selectedTab === "login" ? "Log in" : "Register"}
-      </SubmitBtn>
+      </Button>
     </div>
   );
 };

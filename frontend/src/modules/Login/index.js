@@ -24,6 +24,7 @@ const Login = () => {
   const toast = useToast();
   const history = useHistory();
   const [selectedTab, setSelectedTab] = useState("login");
+  const [loading, setLoading] = useState(false);
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
   //TODO- Add profile upload logic
   const [registerInfo, setRegisterInfo] = useState({
@@ -46,6 +47,7 @@ const Login = () => {
     }
 
     try {
+      setLoading(true);
       const apiResponse = await fetch("/user/login", {
         method: "POST",
         headers: {
@@ -63,10 +65,11 @@ const Login = () => {
           isClosable: true,
           position: "bottom-left",
         });
-        history.push("/home");
 
         // storing our user (with auth token) in local storage
-        localStorage.setItem("user", JSON.stringify(res));
+        localStorage.setItem("user", JSON.stringify(res.data));
+
+        history.push("/home");
       } else {
         toast({
           title: res.error,
@@ -79,6 +82,7 @@ const Login = () => {
     } catch (err) {
       console.log(err);
     }
+    setLoading(false);
   };
 
   const handleRegister = async () => {
@@ -107,6 +111,7 @@ const Login = () => {
     }
 
     try {
+      setLoading(true);
       const apiResponse = await fetch("/user/register", {
         method: "POST",
         headers: {
@@ -137,6 +142,7 @@ const Login = () => {
     } catch (err) {
       console.log(err);
     }
+    setLoading(false);
   };
 
   return (
@@ -168,6 +174,7 @@ const Login = () => {
               setRegisterInfo={setRegisterInfo}
               handleLogin={handleLogin}
               handleRegister={handleRegister}
+              isLoading={loading}
             />
           </LeftSection>
           <RightSection>
