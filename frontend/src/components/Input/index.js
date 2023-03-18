@@ -6,7 +6,7 @@ import { InputComp, InputWrapper } from "./styled";
 const Input = ({ Icon, placeholder, styles, type, onChange }) => {
   return (
     <InputWrapper>
-      {Icon && <Icon style={{ position: "absolute", marginTop: "4px" }} />}
+      {Icon && <Icon style={{ position: "absolute", marginTop: "10px" }} />}
       <InputComp
         type={type || "text"}
         placeholder={placeholder || ""}

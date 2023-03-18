@@ -36,6 +36,7 @@ export const LeftSection = styled.div`
   align-items: flex-start;
   h1 {
     font-size: 36px;
+    margin-bottom: 20px;
   }
 `;
 
