@@ -1,7 +1,16 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
+
+import HomeDashBoard from "./modules/HomeDashboard";
+import Login from "./modules/Login";
 
 function App() {
-  return <div>frontenddd</div>;
+  return (
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route path="/" component={HomeDashBoard} />
+    </Switch>
+  );
 }
 
 export default App;
