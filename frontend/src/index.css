@@ -5,14 +5,3 @@ body {
     font-family: 'Poppins', sans-serif;
       
 }
-
-input {
-    border: none;
-    border-bottom: 1px solid #999;
-    padding: 6px 30px;
-    outline: none;
-}
-
-input:focus {
-    border-bottom: 1px solid #000;
-}
