@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 // assets
 import LoginImg from "../../assets/login.jpg";
@@ -21,6 +22,7 @@ import {
 
 const Login = () => {
   const toast = useToast();
+  const history = useHistory();
   const [selectedTab, setSelectedTab] = useState("login");
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
   //TODO- Add profile upload logic
@@ -43,10 +45,43 @@ const Login = () => {
       });
     }
 
-    // const res = await fetch()
+    try {
+      const apiResponse = await fetch("/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const res = await apiResponse.json();
+      if (res.status === "ok") {
+        toast({
+          title: res.message,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+        history.push("/home");
+
+        // storing our user (with auth token) in local storage
+        localStorage.setItem("user", JSON.stringify(res));
+      } else {
+        toast({
+          title: res.error,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     const { name, email, password, cpassword } = registerInfo;
 
     if (!name || !email || !password || !cpassword) {
@@ -57,6 +92,7 @@ const Login = () => {
         isClosable: true,
         position: "bottom-left",
       });
+      return;
     }
 
     if (password !== cpassword) {
@@ -67,6 +103,39 @@ const Login = () => {
         isClosable: true,
         position: "bottom-left",
       });
+      return;
+    }
+
+    try {
+      const apiResponse = await fetch("/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password, cpassword }),
+      });
+
+      const res = await apiResponse.json();
+      if (res.status === "ok") {
+        toast({
+          title: res.message,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+        setSelectedTab("login");
+      } else {
+        toast({
+          title: res.error,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -107,7 +176,16 @@ const Login = () => {
               alt="login-register-img"
             />
             {selectedTab === "login" && (
-              <button>Get guest user credentials</button>
+              <button
+                onClick={() =>
+                  setLoginInfo({
+                    email: "guest@guest.com",
+                    password: "iamaguest",
+                  })
+                }
+              >
+                Get guest user credentials
+              </button>
             )}
           </RightSection>
         </InnerWrap>

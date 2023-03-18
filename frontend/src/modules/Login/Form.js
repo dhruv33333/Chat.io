@@ -20,13 +20,13 @@ const Form = ({
   handleRegister,
 }) => {
   const handleLoginInfoChange = (e, key) => {
-    const info = loginInfo;
+    const info = { ...loginInfo };
     info[key] = e.target.value;
     setLoginInfo(info);
   };
 
   const handleRegisterInfoChange = (e, key) => {
-    const info = registerInfo;
+    const info = { ...registerInfo };
     info[key] = e.target.value;
     setRegisterInfo(info);
   };
@@ -41,12 +41,14 @@ const Form = ({
           placeholder="Your email"
           Icon={MdEmail}
           onChange={(e) => handleLoginInfoChange(e, "email")}
+          value={loginInfo.email}
         />
         <Input
           type="password"
           placeholder="Password"
           Icon={MdLock}
           onChange={(e) => handleLoginInfoChange(e, "password")}
+          value={loginInfo.password}
         />
       </InputWrap>
     );
@@ -58,24 +60,28 @@ const Form = ({
           placeholder="Your Name"
           Icon={FaUser}
           onChange={(e) => handleRegisterInfoChange(e, "name")}
+          value={registerInfo.name}
         />
         <Input
           type="email"
           placeholder="Your Email"
           Icon={MdEmail}
           onChange={(e) => handleRegisterInfoChange(e, "email")}
+          value={registerInfo.email}
         />
         <Input
           type="password"
           placeholder="Password"
           Icon={MdLock}
           onChange={(e) => handleRegisterInfoChange(e, "password")}
+          value={registerInfo.password}
         />
         <Input
           type="password"
           placeholder="Repeat your password"
           Icon={MdOutlineLock}
           onChange={(e) => handleRegisterInfoChange(e, "cpassword")}
+          value={registerInfo.cpassword}
         />
       </InputWrap>
     );
