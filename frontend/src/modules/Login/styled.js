@@ -1,22 +1,34 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+export const Header = styled.div`
+  margin-top: 30vh;
+  width: 52%;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  margin: auto;
+  margin-top: 24px;
+  padding: 20px 60px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+`;
 
 export const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background: white;
   box-shadow: 0 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
-  margin-top: 30vh;
-  width: 70%;
+  width: 52%;
   margin: auto;
-  margin-top: 18vh;
-  padding: 60px;
+  margin-top: 40px;
+  padding: 20px 60px 40px;
 `;
 
-// export const Container = styled.div`
-//   display: flex;
-// `;
+export const InnerWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
 
 export const LeftSection = styled.div`
   display: flex;
@@ -41,7 +53,7 @@ export const SubmitBtn = styled.button`
   padding: 15px 39px;
   border-radius: 5px;
   border: none;
-  margin-top: 24px;
+  margin-top: 16px;
   cursor: pointer;
   &:hover {
     background: #5788b6;
@@ -65,4 +77,39 @@ export const RightSection = styled.div`
     margin-top: 20px;
     background: transparent;
   }
+`;
+
+export const Tabs = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  div {
+    width: 50%;
+    font-size: 16px;
+    text-align: center;
+    ${({ selected }) =>
+      selected &&
+      css`
+        background: #a7e2ff;
+        border-radius: 20px;
+      `}
+  }
+`;
+
+export const Tab = styled.button`
+  width: 50%;
+  font-size: 16px;
+  text-align: center;
+  padding: 10px;
+
+  border: none;
+  background: transparent;
+  ${({ selected }) =>
+    selected &&
+    css`
+      background: #a7e2ff;
+      border-radius: 20px;
+      color: #397690;
+    `}
 `;

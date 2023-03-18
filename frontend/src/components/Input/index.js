@@ -1,11 +1,11 @@
 import React from "react";
 
 // styles
-import { InputComp } from "./styled";
+import { InputComp, InputWrapper } from "./styled";
 
 const Input = ({ Icon, placeholder, styles, type, onChange }) => {
   return (
-    <>
+    <InputWrapper>
       {Icon && <Icon style={{ position: "absolute", marginTop: "4px" }} />}
       <InputComp
         type={type || "text"}
@@ -13,7 +13,7 @@ const Input = ({ Icon, placeholder, styles, type, onChange }) => {
         onChange={(e) => onChange(e)}
         style={styles}
       />
-    </>
+    </InputWrapper>
   );
 };
 

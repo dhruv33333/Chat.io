@@ -1,5 +1,9 @@
 import styled, { css } from "styled-components";
 
+export const InputWrapper = styled.div`
+  position: relative;
+`;
+
 export const InputComp = styled.input`
   border: none;
   border-bottom: 1px solid #999;

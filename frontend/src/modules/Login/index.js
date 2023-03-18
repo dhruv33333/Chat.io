@@ -9,30 +9,53 @@ import Form from "./Form";
 
 // styles
 import {
-  InputWrap,
   LeftSection,
   RightSection,
-  SubmitBtn,
   Wrapper,
+  Tabs,
+  InnerWrap,
+  Tab,
+  Header,
 } from "./styled";
 
 const Login = () => {
   const [selectedTab, setSelectedTab] = useState("login");
 
   return (
-    <Wrapper>
-      <LeftSection>
-        <h1>{selectedTab === "login" ? "Login" : "Sign Up"}</h1>
-        <Form selectedTab={selectedTab} />
-      </LeftSection>
-      <RightSection>
-        <img
-          src={selectedTab === "login" ? LoginImg : RegisterImg}
-          alt="login-register-img"
-        />
-        {selectedTab === "login" && <button>Get guest user credentials</button>}
-      </RightSection>
-    </Wrapper>
+    <>
+      <Header>Chat.io</Header>
+      <Wrapper>
+        <Tabs>
+          <Tab
+            selected={selectedTab === "login"}
+            onClick={() => setSelectedTab("login")}
+          >
+            Login
+          </Tab>
+          <Tab
+            selected={selectedTab === "register"}
+            onClick={() => setSelectedTab("register")}
+          >
+            Sign Up
+          </Tab>
+        </Tabs>
+        <InnerWrap>
+          <LeftSection>
+            <h1>{selectedTab === "login" ? "Login" : "Sign Up"}</h1>
+            <Form selectedTab={selectedTab} />
+          </LeftSection>
+          <RightSection>
+            <img
+              src={selectedTab === "login" ? LoginImg : RegisterImg}
+              alt="login-register-img"
+            />
+            {selectedTab === "login" && (
+              <button>Get guest user credentials</button>
+            )}
+          </RightSection>
+        </InnerWrap>
+      </Wrapper>
+    </>
   );
 };
 
