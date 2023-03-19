@@ -7,7 +7,7 @@ import Login from "./modules/Login";
 function App() {
   return (
     <Switch>
-      <Route path="/login" component={Login} />
+      <Route path={["/", "/login"]} component={Login} exact />
       <Route path="/home" component={HomeDashBoard} />
     </Switch>
   );

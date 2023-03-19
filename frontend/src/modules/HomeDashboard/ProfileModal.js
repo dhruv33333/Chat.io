@@ -5,14 +5,12 @@ import { AiFillEye } from "react-icons/ai";
 
 // components
 import {
-  Button,
   IconButton,
   Image,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Text,
@@ -37,15 +35,16 @@ const ProfileModal = ({ user, children }) => {
       <Modal size="lg" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent h="332px">
-          <ModalHeader fontSize="40px" d="flex" justifyContent="center">
+          <ModalHeader fontSize="40px" display="flex" justifyContent="center">
             {user?.name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody
-            d="flex"
+            display="flex"
             flexDir="column"
             alignItems="center"
             justifyContent="space-between"
+            mb="16px"
           >
             <Image
               borderRadius="full"
