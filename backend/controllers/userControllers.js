@@ -66,4 +66,18 @@ const loginController = async (req, res) => {
   }
 };
 
-module.exports = { registerController, loginController };
+const searchUserController = async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } }, // options i is for case insensitivity
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+
+  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+  res.send(users);
+};
+
+module.exports = { registerController, loginController, searchUserController };
