@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const NavBar = styled.div`
+export const NavBarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
