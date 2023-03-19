@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 // assets
 import LoginImg from "../../assets/login.jpg";
 import RegisterImg from "../../assets/register.jpg";
+
+// context
+import { useAppContext } from "../../contexts/AppProvider";
 
 // components
 import Form from "./Form";
@@ -23,6 +26,7 @@ import {
 const Login = () => {
   const toast = useToast();
   const history = useHistory();
+  const { user } = useAppContext();
   const [selectedTab, setSelectedTab] = useState("login");
   const [loading, setLoading] = useState(false);
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
@@ -33,6 +37,13 @@ const Login = () => {
     password: "",
     cpassword: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      console.log("User already logged in, redirecting to home page");
+      history.push("/home");
+    }
+  }, [user]);
 
   const handleLogin = async () => {
     const { email, password } = loginInfo;

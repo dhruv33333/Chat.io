@@ -7,11 +7,16 @@ import { BrowserRouter } from "react-router-dom";
 // chakra-ui
 import { ChakraProvider } from "@chakra-ui/react";
 
+// AppProvider
+import AppProvider from "./contexts/AppProvider";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <ChakraProvider>
-      <App />
-    </ChakraProvider>
+    <AppProvider>
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
+    </AppProvider>
   </BrowserRouter>
 );
