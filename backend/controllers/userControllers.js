@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const generateToken = require("../config/generateToken");
 
 const registerController = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, profilePic } = req.body;
 
   if (!name || !email || !password) {
     return res.status(400).json({ error: "Please fill the form correctly!" });
@@ -14,7 +14,7 @@ const registerController = async (req, res) => {
     return res.status(400).json({ error: "User already exists!" });
   }
 
-  const user = await User.create({ name, email, password });
+  const user = await User.create({ name, email, password, profilePic });
 
   if (user) {
   } else {
@@ -54,7 +54,7 @@ const loginController = async (req, res) => {
         _id: user.id,
         name: user.name,
         email: user.email,
-        pic: user.pic,
+        pic: user.profilePic,
       },
       token: generateToken(user._id),
       status: "ok",
