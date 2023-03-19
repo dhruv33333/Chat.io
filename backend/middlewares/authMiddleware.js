@@ -12,10 +12,10 @@ const protect = async (req, res, next) => {
       // splitting the token with the word "Bearer" the token before looks like "Bearer <token>"
       token = req.headers.authorization.split(" ")[1];
 
-      //decodes token id
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      // decodes token id
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
-      //selecting the user by id and removing password from it
+      // selecting the user by id and removing password from it
       req.user = await User.findById(decoded.id).select("-password");
 
       next();
