@@ -55,8 +55,8 @@ const loginController = async (req, res) => {
         name: user.name,
         email: user.email,
         pic: user.profilePic,
+        token: generateToken(user._id),
       },
-      token: generateToken(user._id),
       status: "ok",
     });
   } catch (err) {
@@ -77,7 +77,7 @@ const searchUserController = async (req, res) => {
     : {};
 
   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-  res.send(users);
+  res.send({ data: users, status: "ok" });
 };
 
 module.exports = { registerController, loginController, searchUserController };
