@@ -2,10 +2,11 @@ import React from "react";
 
 // assets
 import { FaUser } from "react-icons/fa";
+import { GrImage } from "react-icons/gr";
 import { MdEmail, MdLock, MdOutlineLock } from "react-icons/md";
 
 // components
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { Input } from "../../components";
 
 // styles
@@ -20,7 +21,11 @@ const Form = ({
   handleLogin,
   handleRegister,
   isLoading,
+  setLoading,
+  setPic,
 }) => {
+  const toast = useToast();
+
   const handleLoginInfoChange = (e, key) => {
     const info = { ...loginInfo };
     info[key] = e.target.value;
@@ -31,6 +36,51 @@ const Form = ({
     const info = { ...registerInfo };
     info[key] = e.target.value;
     setRegisterInfo(info);
+  };
+
+  const postDetails = (pics) => {
+    setLoading(true);
+    if (pics === undefined) {
+      toast({
+        title: "Please Fill all the Fields",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "chat.io");
+      data.append("cloud_name", "dhruvn");
+      fetch("https://api.cloudinary.com/v1_1/dhruvn/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(data.url.toString());
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      toast({
+        title: "Please Select an Image !",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setLoading(false);
+      return;
+    }
   };
 
   let form;
@@ -70,6 +120,14 @@ const Form = ({
           Icon={MdEmail}
           onChange={(e) => handleRegisterInfoChange(e, "email")}
           value={registerInfo.email}
+        />
+        <Input
+          type="file"
+          p={1.5}
+          accept="image/*"
+          Icon={GrImage}
+          placeholder="hi"
+          onChange={(e) => postDetails(e.target.files[0])}
         />
         <Input
           type="password"

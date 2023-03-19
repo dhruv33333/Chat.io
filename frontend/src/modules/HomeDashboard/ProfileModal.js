@@ -38,7 +38,7 @@ const ProfileModal = ({ user, children }) => {
         <ModalOverlay />
         <ModalContent h="332px">
           <ModalHeader fontSize="40px" d="flex" justifyContent="center">
-            {user.name}
+            {user?.name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody
@@ -47,13 +47,12 @@ const ProfileModal = ({ user, children }) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            {/* To-Do add image */}
-            {/* <Image
+            <Image
               borderRadius="full"
               boxSize="150px"
               src={user?.pic}
-              alt={user.name}
-            /> */}
+              alt={user?.name}
+            />
             <Text fontSize={{ base: "28px", md: "30px" }}>
               Email: {user?.email}
             </Text>

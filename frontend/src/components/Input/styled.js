@@ -5,6 +5,7 @@ export const InputWrapper = styled.div`
 `;
 
 export const InputComp = styled.input`
+  width: 270px;
   border: none;
   border-bottom: 1px solid #999;
   padding: 6px 30px;

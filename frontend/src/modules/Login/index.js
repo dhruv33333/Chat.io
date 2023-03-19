@@ -26,7 +26,7 @@ import {
 const Login = () => {
   const toast = useToast();
   const history = useHistory();
-  const { user } = useAppContext();
+  const { setUser } = useAppContext();
   const [selectedTab, setSelectedTab] = useState("login");
   const [loading, setLoading] = useState(false);
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
@@ -37,13 +37,15 @@ const Login = () => {
     password: "",
     cpassword: "",
   });
+  const [pic, setPic] = useState(null);
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       console.log("User already logged in, redirecting to home page");
       history.push("/home");
     }
-  }, [user]);
+  }, []);
 
   const handleLogin = async () => {
     const { email, password } = loginInfo;
@@ -66,6 +68,7 @@ const Login = () => {
         },
         body: JSON.stringify({ email, password }),
       });
+      setLoading(false);
 
       const res = await apiResponse.json();
       if (res.status === "ok") {
@@ -78,8 +81,10 @@ const Login = () => {
         });
 
         // storing our user (with auth token) in local storage
-        localStorage.setItem("user", JSON.stringify(res.data));
+        const stringData = JSON.stringify(res.data);
+        localStorage.setItem("user", stringData);
 
+        setUser(res.data); // TODO - debug why removing this sometimes doesnt run the hook
         history.push("/home");
       } else {
         toast({
@@ -89,17 +94,18 @@ const Login = () => {
           isClosable: true,
           position: "bottom-left",
         });
+        return;
       }
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleRegister = async () => {
     const { name, email, password, cpassword } = registerInfo;
 
-    if (!name || !email || !password || !cpassword) {
+    if (!name || !email || !password || !cpassword || !pic) {
       toast({
         title: "Please enter all the details!",
         status: "error",
@@ -128,7 +134,13 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password, cpassword }),
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          cpassword,
+          profilePic: pic,
+        }),
       });
 
       const res = await apiResponse.json();
@@ -186,6 +198,8 @@ const Login = () => {
               handleLogin={handleLogin}
               handleRegister={handleRegister}
               isLoading={loading}
+              setLoading={setLoading}
+              setPic={setPic}
             />
           </LeftSection>
           <RightSection>

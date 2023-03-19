@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Header = styled.div`
   margin-top: 30vh;
-  width: 52%;
+  width: 56%;
   border-radius: 20px;
   background: white;
   box-shadow: 0 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   background: white;
   box-shadow: 0 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
-  width: 52%;
+  width: 56%;
   margin: auto;
   margin-top: 40px;
   padding: 20px 60px 40px;

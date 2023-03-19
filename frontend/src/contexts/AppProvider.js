@@ -10,10 +10,10 @@ const AppProvider = ({ children }) => {
   const history = useHistory();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    setUser(user);
+    const userInfo = JSON.parse(localStorage.getItem("user"));
+    setUser(userInfo);
 
-    if (!user) {
+    if (!userInfo) {
       console.log(
         "No user present in local storage redirecting to login page..."
       );

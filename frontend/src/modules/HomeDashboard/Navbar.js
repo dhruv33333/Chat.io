@@ -41,9 +41,13 @@ const NavBar = () => {
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
 
-  const { user } = useAppContext();
+  const { user, setUser } = useAppContext();
 
-  const logoutHandler = () => {};
+  const logoutHandler = () => {
+    localStorage.removeItem("user");
+    history.push("/login");
+  };
+
   const handleSearch = () => {};
   const accessChat = () => {};
 
